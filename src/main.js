@@ -3,7 +3,7 @@ document.querySelector('#record').addEventListener('click', startRecord);
 const inProduction = true; // hide video and tmp canvas
 const channel = 'r'; // red only, green='g' and blue='b' channels can be added
 
-let video, tempCanvas, tempContext; // video from rear-facing-camera and temp canvas
+let video, c_tmp, tempContext; // video from rear-facing-camera and temp canvas
 let frameCount = 0; // count number of video frames processed 
 let delay = 0; // delay = 100; should give us 10 fps, estimated around 7
 let numOfQualityFrames = 0; // TODO: count the number of quality frames
@@ -39,16 +39,16 @@ function setWH() {
   let [w, h] = [video.videoWidth, video.videoHeight];
   document.getElementById('delay').innerHTML = `Frame compute delay: ${delay}`;
   document.getElementById('resolution').innerHTML = `Video resolution: ${w} x ${h}`;
-  tempCanvas.setAttribute('width', w);
-  tempCanvas.setAttribute('height', h);
+  c_tmp.setAttribute('width', w);
+  c_tmp.setAttribute('height', h);
 }
 
 function init() {
-  tempCanvas = document.getElementById('output-canvas');
+  c_tmp = document.getElementById('output-canvas');
   if (inProduction) {
-    tempCanvas.style.display = 'none';
+    c_tmp.style.display = 'none';
   }
-  tempContext = tempCanvas.getContext('2d');
+  tempContext = c_tmp.getContext('2d');
 }
 
 function computeFrame() {
